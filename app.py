@@ -1,6 +1,9 @@
 from flask import Flask, request
 from datetime import datetime
-from utils import single_write_to_db
+from utils import single_write_to_db, get_db_connection
+from truth_scraper import query_single_truth
+from twitter_scraper import query_single_tweet
+from constants import Platform, FILEDS
 
 app = Flask(__name__)
 
@@ -28,6 +31,15 @@ def save_post():
 
         single_write_to_db(post_date, content, author, platform, url, keyword)
     return
+
+
+def perform_new_query(platform, term):
+    if platform == Platform.TRUTHSOCIAL:
+        query_single_truth(term)
+    elif platform == Platform.TWITTER:
+        query_single_tweet(term)
+    elif platform == Platform.FACEBOOK:
+        raise NotImplementedError
 
 
 if __name__ == '__main__':

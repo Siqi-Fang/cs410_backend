@@ -10,6 +10,7 @@ from sqlite3 import IntegrityError
 
 from app import single_write_to_db
 
+from constants import TRUTHSOCIAL_BASE
 
 USERNAME = config('USERNAME')
 KEY = config('KEY')
@@ -136,6 +137,8 @@ def truth_search(driver, term, query):
 
 def _login_to_truth(driver, my_username, my_password):
     # fills the login page with credentials u provided
+    # username and password == null should be handled by frontend
+    # TODO: how to detect login failure
     username = driver.find_element("xpath", '//input[@name="username"]')
     username.clear()
     username.send_keys(my_username)
@@ -149,11 +152,11 @@ def _login_to_truth(driver, my_username, my_password):
     sleep(0.5)
 
 
-def query_single(term, query="KEYWORD"):
+def query_single_truth(term, query="KEYWORD"):
     #options = webdriver.ChromeOptions()
     #options.add_argument("headless") # hides the window
     driver = webdriver.Chrome('/Users/apple/Downloads/chromedriver')
-    driver.get('https://truthsocial.com/login')
+    driver.get(TRUTHSOCIAL_BASE)
     driver.maximize_window()
     sleep(2)
 
@@ -186,11 +189,7 @@ def query_single(term, query="KEYWORD"):
 
 
 def main():
-    my_terms = ["Illegal alien Latino", "Illegal immigrant Latino", "Latino Wetback", "Latino Spic",
-                "Latino Undocumented", "Latino Beaner", "Latino Rapists", "Latino Drug dealers", "Latino Invasion"]
-
-    for term in my_terms:
-        query_single(term)
+    pass
 
 
 if __name__ == '__main__':

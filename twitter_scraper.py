@@ -6,7 +6,7 @@ from sqlite3 import IntegrityError
 """
 
 
-def get_tweets_with_slur(slur):
+def query_single_tweet(slur):
     query = slur + " since:2020-10-16"
     items = sntwitter.TwitterSearchScraper(query).get_items()
     for tweet in items:
@@ -23,7 +23,7 @@ def get_tweets_with_slur(slur):
 def main():
     #slurs = ["Illegal alien Latino", "Illegal immigrant Latino", "Latino Wetback", "Latino Spic", "Latino Undocumented", "Latino Beaner", "Latino Rapists", "Latino Drug dealers", "Latino Invasion"]
     term = 'Latino Invasion'
-    get_tweets_with_slur(term)
+    query_single_tweet(term)
     print('==========Query for {} finished============'.format(term))
 
 

@@ -1,7 +1,7 @@
 import sqlite3
 from sqlite3 import IntegrityError
 
-connection = sqlite3.connect('database.db')
+connection = sqlite3.connect('test.db')
 
 with open('schema.sql') as f:
     connection.executescript(f.read())
