@@ -2,6 +2,7 @@ from enum import Enum
 
 TRUTHSOCIAL_BASE = 'https://truthsocial.com/login'
 
+
 class Platform(Enum):
     TRUTHSOCIAL = 1
     FACEBOOK = 2
@@ -9,7 +10,7 @@ class Platform(Enum):
 
     @staticmethod
     def from_str(term):
-        if term.lower() == 'truth_social':
+        if term.lower() == 'truth-social':
             return Platform.TRUTHSOCIAL
         elif term.lower() == 'facebook':
             return Platform.FACEBOOK

@@ -5,7 +5,7 @@ from app.truth_scraper import query_single_truth
 from app.twitter_scraper import query_single_tweet
 from app.constants import Platform, FILEDS
 
-bp = Blueprint('app', __name__, template_folder='/templates')
+bp = Blueprint('app', __name__, template_folder='/templates', static_folder='/static')
 
 # @bp.route('/')
 # def home():
@@ -29,6 +29,10 @@ def gen_scrape_request():
         search_terms = request.form.getlist('terms')
 
         print(platform, user_login, user_key, search_terms)
+
+        for term in search_terms:
+            perform_new_query(platform, term)
+
         return render_template('scrape.html')
 
 
