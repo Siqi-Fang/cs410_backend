@@ -7,12 +7,17 @@ from app.constants import Platform, FILEDS
 
 bp = Blueprint('app', __name__, template_folder='/templates', static_folder='/static')
 
-# @bp.route('/')
-# def home():
-#     return render_template('main.html')
-
-
 @bp.route('/')
+def home():
+    return render_template('main.html')
+
+
+@bp.route('/render_search/')
+def render_search():
+    return render_template('search.html')
+
+
+@bp.route('/render_scrape/')
 def render_scrape():
     return render_template('scrape.html')
 

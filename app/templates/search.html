@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Search Page</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css')}}">
+{#  <script src="main.js"></script>#}
+
+</head>
+<body>
+<main>
+<h1>Search From an Existing Database</h1>
+<h2>Select Searching Parameters</h2>
+<form action="http://localhost:8080/second" method="post" id="search_param">
+    <fieldset>
+        <legend>Choose a Social Media</legend>
+        <input type="checkbox" id="facebook" name="social-media" value="facebook">
+        <label for="facebook">Facebook</label><br>
+        <input type="checkbox" id="twitter" name="social-media" value="twitter">
+        <label for="twitter">Twitter</label><br>
+        <input type="checkbox" id="truth-social" name="social-media" value="truth-social">
+        <label for="truth-social">Truth Social</label><br>
+    </fieldset>
+    <fieldset>
+        <legend>Select Search Terms</legend>
+        <input type="checkbox" id="term1" name="terms" value="Illegal alien Latino">
+        <label for="term1">Illegal alien Latino</label><br>
+        <input type="checkbox" id="term2" name="terms" value="Illegal immigrant Latino" >
+        <label for="term2">Illegal immigrant Latino</label><br>
+        <input type="checkbox" id="term3" name="terms" value="Latino Wetback" >
+        <label for="term3">Latino Wetback</label><br>
+        <input type="checkbox" id="term4" name="terms" value="Latino Spic" >
+        <label for="term4">Latino Spic</label><br>
+        <input type="checkbox" id="term5" name="terms" value="Latino Undocumented" >
+        <label for="term5">Latino Undocumented</label><br>
+        <input type="checkbox" id="term6" name="terms" value="Latino Beaner" >
+        <label for="term6">Latino Beaner</label><br>
+        <input type="checkbox" id="term7" name="terms" value="Latino Rapists" >
+        <label for="term7">Latino Rapists</label><br>
+        <input type="checkbox" id="term8" name="terms" value="Latino Drug dealers" >
+        <label for="term8">Latino Drug dealers</label><br>
+        <input type="checkbox" id="term9" name="terms" value="Latino Invasion" >
+        <label for="term9">Latino Invasion</label><br>
+    </fieldset>
+    <label for="start-search">From:</label>
+    <input type="date" id="start-search" name="start-scrape" min="2018-01-01">
+    <label for="end-search">To:</label>
+    <input type="date" id="end-search" name="end-scrape" min="2018-01-01"><br>
+    <input type="submit" value="Search" id="search">
+</form>
+</main>
+</body>
+</html>
