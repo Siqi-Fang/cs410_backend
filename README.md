@@ -7,3 +7,5 @@ Code for backend for cs seminar project
 - Login issue 
 - Required fields
 - requirements.txt
+- date query
+- facebook
