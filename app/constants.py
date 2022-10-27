@@ -19,11 +19,11 @@ class Platform(Enum):
         else:
             raise NotImplementedError
 
-FILEDS = ['POST_DATE',
+FIELDS = ['POST_DATE',
           'AUTHOR',
           'CONTENT',
           'PLATFORM',
           'URL',
           'KEYWORD']
 
-#KEYWORDS = ["Illegal alien Latino", "Illegal immigrant Latino", "Latino Wetback", "Latino Spic", "Latino Undocumented", "Latino Beaner", "Latino Rapists", "Latino Drug dealers", "Latino Invasion"]
+KEYWORDS = ["Illegal alien Latino", "Illegal immigrant Latino", "Latino Wetback", "Latino Spic", "Latino Undocumented", "Latino Beaner", "Latino Rapists", "Latino Drug dealers", "Latino Invasion"]

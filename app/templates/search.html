@@ -11,7 +11,7 @@
 <main>
 <h1>Search From an Existing Database</h1>
 <h2>Select Searching Parameters</h2>
-<form action="http://localhost:8080/second" method="post" id="search_param">
+<form action="{{ url_for('app.retrieve_posts') }}" method="POST" id="search_param">
     <fieldset>
         <legend>Choose a Social Media</legend>
         <input type="checkbox" id="facebook" name="social-media" value="facebook">
@@ -49,5 +49,6 @@
     <input type="submit" value="Search" id="search">
 </form>
 </main>
+<p>Click Here to download</p> {{ link_to_download |safe }}
 </body>
 </html>

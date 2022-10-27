@@ -1,16 +1,31 @@
+
+/* make the two buttons big enough to occupy the while screen */
+#button1, #button2 {
+    /* make the buttons look pretty */
+    background-color: #023b59;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    position: center;
+    /* make the buttons be big enough to occupy half of the screen */
+    width: 50%;
+}
+
 h1 {
-    color: royalblue;
+    color: #023b59;
+    font-family: "Times New Roman", Times, serif;
     font-size: 50px;
+    text-align: center;
 }
 
-h2 {
-    color:royalblue;
+body {
+    background-color: #dce1e3;
 }
 
-form {
-    border: 20px;
-    border-color: royalblue;
-    padding: 20px;
-    /* color: hotpink; */
-    background-color:thistle;
-}
+

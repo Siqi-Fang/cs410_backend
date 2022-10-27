@@ -58,7 +58,7 @@ def get_truth_data(card):
     except exceptions.NoSuchElementException:
         url = 'N/A'
 
-    data = (post_date, content, author, 'Truth Social', url)
+    data = (post_date, content, author, 'truth-social', url)
 
     return data
 

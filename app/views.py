@@ -1,9 +1,9 @@
 from flask import Blueprint, request, render_template, url_for
 from datetime import datetime
-#from app.utils import single_write_to_db, get_db_connection
+from app.utils import form_field_to_sql_command, update_csv_from_cmd
 from app.truth_scraper import query_single_truth
 from app.twitter_scraper import query_single_tweet
-from app.constants import Platform, FILEDS
+from app.constants import Platform, FIELDS
 
 bp = Blueprint('app', __name__, template_folder='/templates', static_folder='/static')
 
@@ -39,6 +39,29 @@ def gen_scrape_request():
             perform_new_query(platform, term)
 
         return render_template('scrape.html')
+
+
+@bp.route('/retrieve_posts/', methods=['POST', 'GET'])
+def retrieve_posts():
+
+    if request.method == 'POST':
+        # all the fields needs to be required
+        platform = request.form['social-media']  # will return the value field
+        search_terms = request.form.getlist('terms')
+
+        sql_cmd = form_field_to_sql_command(platform=platform, keywords=search_terms)
+        update_status = update_csv_from_cmd(sql_cmd)
+        if update_status> 0: # download ready
+            link_to_download = '<a href = {} download> Click Here to Download </a>'.format(
+                url_for('static', filename='result.csv'))
+        elif update_status == 0:
+        # TODO Message
+            link_to_download = "No result matching your search exists in our database"
+        else:
+            link_to_download = 'Connection Failed, Please Retry'
+        #query_db(Field.PLATFORM = platform, Field.KEYWORD = search_terms)
+
+        return render_template('search.html', link_to_download=link_to_download)
 
 
 # def retrieve_post(post_id):
