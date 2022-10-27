@@ -1,0 +1,16 @@
+h1 {
+    color: royalblue;
+    font-size: 50px;
+}
+
+h2 {
+    color:royalblue;
+}
+
+form {
+    border: 20px;
+    border-color: royalblue;
+    padding: 20px;
+    /* color: hotpink; */
+    background-color:thistle;
+}

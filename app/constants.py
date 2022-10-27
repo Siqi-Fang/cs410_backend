@@ -9,7 +9,7 @@ class Platform(Enum):
 
     @staticmethod
     def from_str(term):
-        if term.lower() == 'truth social':
+        if term.lower() == 'truth_social':
             return Platform.TRUTHSOCIAL
         elif term.lower() == 'facebook':
             return Platform.FACEBOOK
@@ -25,4 +25,4 @@ FILEDS = ['POST_DATE',
           'URL',
           'KEYWORD']
 
-#KEYWORDS = []
+#KEYWORDS = ["Illegal alien Latino", "Illegal immigrant Latino", "Latino Wetback", "Latino Spic", "Latino Undocumented", "Latino Beaner", "Latino Rapists", "Latino Drug dealers", "Latino Invasion"]

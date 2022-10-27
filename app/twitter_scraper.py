@@ -1,9 +1,7 @@
 import snscrape.modules.twitter as sntwitter
-from utils import single_write_to_db
+from app.utils import single_write_to_db
 from sqlite3 import IntegrityError
-"""
-(post_date, content, author, platform, url, term)
-"""
+
 
 
 def query_single_tweet(slur):
@@ -21,10 +19,7 @@ def query_single_tweet(slur):
             break
 
 def main():
-    #slurs = ["Illegal alien Latino", "Illegal immigrant Latino", "Latino Wetback", "Latino Spic", "Latino Undocumented", "Latino Beaner", "Latino Rapists", "Latino Drug dealers", "Latino Invasion"]
-    term = 'Latino Invasion'
-    query_single_tweet(term)
-    print('==========Query for {} finished============'.format(term))
+    pass
 
 
 if __name__ == '__main__':

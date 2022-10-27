@@ -8,9 +8,8 @@ from selenium import webdriver
 
 from sqlite3 import IntegrityError
 
-from app import single_write_to_db
-
-from constants import TRUTHSOCIAL_BASE
+from app.utils import single_write_to_db
+from app.constants import TRUTHSOCIAL_BASE
 
 USERNAME = config('USERNAME')
 KEY = config('KEY')
