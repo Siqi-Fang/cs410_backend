@@ -6,4 +6,4 @@ Code for backend for cs seminar project
   - Message Flushing (check)
 - Login issue 
 - Required fields
-
+- requirements.txt
