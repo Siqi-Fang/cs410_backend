@@ -2,7 +2,10 @@
 Code for backend for cs seminar project 
 
 ### TODO 
-- Query functions (waiting on frontend)
-- Login issue
+- Query functions
+  - Message Flushing (check)
+- Login issue 
 - Required fields
-- Add keyowrds to constants 
+- requirements.txt
+- date query
+- facebook
