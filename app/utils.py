@@ -5,11 +5,11 @@ from os.path import isfile, join
 import sqlite3
 from decouple import config
 from app.db import get_db
-from flask import g, url_for, current_app
 from app.constants import FIELDS
 
 DB = config('DB')
-TABLE = 'TEST'
+TABLE = 'POSTS'
+
 
 def single_write_to_db(post_date, content, author, platform, url, keyword):
     """Write a single row to database"""
@@ -61,16 +61,23 @@ def test_db_setup():
     df.to_sql(name="TEST", con=connection, if_exists='append')
 
 
-def form_field_to_sql_command(platform: str, keywords: str) -> str:
+def form_field_to_sql_command(platform: str, keywords: str, start_date: str, end_date: str) -> str:
     """
     Return the string sql command that query for the given kwargs.
-        Support Platform and Keywords currently
+    If dates are left blank then we don't filter for dates,
     """
     where_statements = []
 
     keywords = ["\'" + keyword + "\'" for keyword in keywords]
     where_statements.append('keyword in ({})'.format(",".join(keywords)))
     where_statements.append('platform == \'{}\''.format(platform))
+    if start_date != '' and end_date == '':
+        where_statements.append('post_date > datetime(\'{}\')'.format(start_date))
+    elif start_date == '' and end_date != '':
+        where_statements.append('post_date < datetime(\'{}\')'.format(end_date))
+    elif start_date != '' and end_date != '':
+        where_statements.append('post_date between datetime(\'{}\') and datetime(\'{}\')'.format(
+                                                        start_date, end_date))
 
     return 'SELECT ' + ", ".join(FIELDS) + ' FROM ' + TABLE + ' WHERE ' + \
            " and ".join(where_statements)
@@ -87,7 +94,7 @@ def update_csv_from_cmd(sql_cmd: str) -> int:
     records = conn.execute(sql_cmd).fetchall()
 
     try:
-        if len(records) == 0: # no data retrieved
+        if len(records) == 0:  # no data retrieved
             return 0
         else:
             with open("app/static/result.csv", "w") as csv_file:

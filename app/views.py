@@ -48,18 +48,20 @@ def retrieve_posts():
         # all the fields needs to be required
         platform = request.form['social-media']  # will return the value field
         search_terms = request.form.getlist('terms')
-
-        sql_cmd = form_field_to_sql_command(platform=platform, keywords=search_terms)
+        start_date = request.form['start-search']
+        end_date = request.form['end-search']
+        sql_cmd = form_field_to_sql_command(platform=platform, keywords=search_terms,
+                                            start_date=start_date, end_date=end_date)
+        print(sql_cmd)
         update_status = update_csv_from_cmd(sql_cmd)
-        if update_status> 0: # download ready
-            link_to_download = '<a href = {} download> Click Here to Download </a>'.format(
-                url_for('static', filename='result.csv'))
+        if update_status > 0: # download ready
+            link_to_download = '<a href = {} download> Click Here to download {} entries found </a>'.format(
+                url_for('static', filename='result.csv'), update_status)
         elif update_status == 0:
         # TODO Message
             link_to_download = "No result matching your search exists in our database"
         else:
             link_to_download = 'Connection Failed, Please Retry'
-        #query_db(Field.PLATFORM = platform, Field.KEYWORD = search_terms)
 
         return render_template('search.html', link_to_download=link_to_download)
 
