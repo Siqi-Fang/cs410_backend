@@ -13,7 +13,7 @@ def query_single_tweet(slur):
                 continue
         tweet_url = "https://twitter.com/" + tweet.user.username + "/status/" + str(tweet.id)
         try:
-            single_write_to_db(tweet.date, tweet.content, tweet.user.username, 'Twitter', tweet_url, slur)
+            single_write_to_db(tweet.date, tweet.content, tweet.user.username, 'twitter', tweet_url, slur)
         except IntegrityError:
             print("Reached visited post, search stopped")
             break
