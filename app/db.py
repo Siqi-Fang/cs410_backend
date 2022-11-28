@@ -1,14 +1,13 @@
 import sqlite3
-from sqlite3 import IntegrityError
 from flask import current_app, g
-from decouple import config
 
-DB = config('DB')
 
+DB = 'data/database.db'
 
 def get_db():
     if 'db' not in g:
         g.db = sqlite3.connect(DB)
+        print('opening {}'.format(DB))
         g.db.row_factory = sqlite3.Row
     return g.db
 

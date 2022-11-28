@@ -1,5 +1,4 @@
 from flask import Blueprint, request, render_template, url_for
-from datetime import datetime
 from app.utils import form_field_to_sql_command, update_csv_from_cmd
 from app.truth_scraper import query_single_truth
 from app.twitter_scraper import query_single_tweet
@@ -36,7 +35,7 @@ def gen_scrape_request():
         print(platform, user_login, user_key, search_terms)
 
         for term in search_terms:
-            perform_new_query(platform, term)
+            perform_new_query(platform, term, user_login, user_key)
 
         return render_template('scrape.html')
 
@@ -58,7 +57,6 @@ def retrieve_posts():
             link_to_download = '<a href = {} download> Click Here to download {} entries found </a>'.format(
                 url_for('static', filename='result.csv'), update_status)
         elif update_status == 0:
-        # TODO Message
             link_to_download = "No result matching your search exists in our database"
         else:
             link_to_download = 'Connection Failed, Please Retry'
@@ -76,29 +74,13 @@ def retrieve_posts():
 #     return post
 
 
-# @bp.route("/request_test", methods=['POST'])
-# def save_post():
-#     """Save Post to database from POST request"""
-#     if request.method == 'POST':
-#         post_date = request.form.get('post_date')
-#         content = request.form.get('content')
-#         author = request.form.get('author')
-#         platform = request.form.get('platform')
-#         url = request.form.get('url')
-#         keyword = request.form.get('keyword')
-#
-#         single_write_to_db(post_date, content, author, platform, url, keyword)
-#     return
-
-
-def perform_new_query(platform, term):
+def perform_new_query(platform, term, user_login, user_key):
     if platform == Platform.TRUTHSOCIAL:
-        query_single_truth(term)
+        query_single_truth(term, user_key, user_login)
     elif platform == Platform.TWITTER:
         query_single_tweet(term)
     elif platform == Platform.FACEBOOK:
         raise NotImplementedError
 
 
-# if __name__ == '__main__':
-#     app.run()
+

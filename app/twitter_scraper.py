@@ -18,6 +18,7 @@ def query_single_tweet(slur):
             print("Reached visited post, search stopped")
             break
 
+
 def main():
     pass
 

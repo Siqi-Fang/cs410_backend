@@ -26,4 +26,5 @@ FIELDS = ['POST_DATE',
           'URL',
           'KEYWORD']
 
-KEYWORDS = ["Illegal alien Latino", "Illegal immigrant Latino", "Latino Wetback", "Latino Spic", "Latino Undocumented", "Latino Beaner", "Latino Rapists", "Latino Drug dealers", "Latino Invasion"]
+KEYWORDS = ["Illegal alien Latino", "Illegal immigrant Latino", "Latino Wetback", "Latino Spic", \
+            "Latino Undocumented", "Latino Beaner", "Latino Rapists", "Latino Drug dealers", "Latino Invasion"]

@@ -38,13 +38,14 @@ def get_truth_data(card):
         return
 
     try:
-        post_date = card.find_element('xpath', './/time').get_attribute('title')
-        post_date = datetime.strptime(post_date, '%b %d, %Y, %H:%M')
+        raw_post_date = card.find_element('xpath', './/time').get_attribute('title')
+        post_date = datetime.strptime(raw_post_date, '%b %d, %Y, %H:%M')
     except exceptions.NoSuchElementException:
         return
     except ValueError: # truth social has weird time sometimes
         print('Invalid Timestamp detected')
-        return
+        post_date = raw_post_date
+
 
     try:
         body = card.find_element('xpath', './/div[@class="status__content-wrapper"]')
@@ -151,7 +152,7 @@ def _login_to_truth(driver, my_username, my_password):
     sleep(0.5)
 
 
-def query_single_truth(term, query="KEYWORD"):
+def query_single_truth(term, query="KEYWORD", password=None, username=None):
     #options = webdriver.ChromeOptions()
     #options.add_argument("headless") # hides the window
     driver = webdriver.Chrome('/Users/apple/Downloads/chromedriver')
@@ -159,10 +160,14 @@ def query_single_truth(term, query="KEYWORD"):
     driver.maximize_window()
     sleep(2)
 
-    _login_to_truth(driver, USERNAME, KEY)
+    if password == "":
+        _login_to_truth(driver, USERNAME, KEY)
+    else:
+        _login_to_truth(driver, username, password)
+
     sleep(2)
 
-    truth_search(driver, term, query)
+    truth_search(driver, term, 'KEYWORD')
 
     last_position = None
     end_of_scroll_region = False
