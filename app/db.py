@@ -1,7 +1,7 @@
 import sqlite3
 from flask import current_app, g
 
-DB = 'data/database.db'
+DB = '/home/hamscraper/cs410_backend/data/database.db'
 
 def get_db():
     if 'db' not in g:

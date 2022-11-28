@@ -1,12 +1,10 @@
 import pandas as pd
 import csv
-from os import listdir
-from os.path import isfile, join
 import sqlite3
 from app.db import get_db
 from app.constants import FIELDS
 
-DB = 'data/database.db'
+DB = '/home/hamscraper/cs410_backend/data/database.db'
 TABLE = 'POSTS'
 
 
@@ -24,14 +22,6 @@ def single_write_to_db(post_date, content, author, platform, url, keyword):
                  (post_date, content, author, platform, url, keyword))
     conn.commit()
 
-
-def test_db_setup():
-    df = pd.read_csv('data/test_data.csv')
-    df['platform'] = 'facebook'
-    print(df.shape)
-
-    connection = sqlite3.connect('data/test.db')
-    df.to_sql(name="TEST", con=connection, if_exists='append')
 
 
 def form_field_to_sql_command(platform: str, keywords: str, start_date: str, end_date: str) -> str:
@@ -69,7 +59,7 @@ def update_csv_from_cmd(sql_cmd: str) -> int:
         if len(records) == 0:  # no data retrieved
             return 0
         else:
-            with open("app/static/result.csv", "w") as csv_file:
+            with open("/home/hamscraper/cs410_backend/app/static/result.csv", "w") as csv_file:
                 csv_writer = csv.writer(csv_file, delimiter="\t")
                 csv_writer.writerow(FIELDS)
                 csv_writer.writerows(records)
