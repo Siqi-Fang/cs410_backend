@@ -1,0 +1,1 @@
+The database should be put inside this directory. To create a new one, see db.py.
