@@ -8,6 +8,7 @@
 <body>
     <main>
         <h1>WebScraping Truth Social, Facebook, Twitter, and Gateway Pundit</h1>
+        <button><a href={{ url_for('app.home')}}>Go Back to Homepage</a></button>
         <h2>Submit a New Query</h2>
         <form method="POST" id="query-details" action="{{url_for("app.gen_scrape_request")}}">
             <fieldset>
