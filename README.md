@@ -5,19 +5,17 @@
 2.`cd` into your root folder where this repository is cloned to 
 3. Download dependencies with `python3 -m pip install -r requirements.txt`
 4. Create a database in the `data` folder named `database.db`. If you need to create a new table refer to db.py file.
+5. Username, Password, local database path and chrome driver path need to be provided with in an `.env` file.
 ### How to run the app
-1. `cd` into `app` folder.
-2. enter `flask run` on command line
+1. `cd` into root folder.
+2. enter `flask run` 
 3. open a browser and go to `http://localhost:5000/`
 
-## User Manual 
-### How Scraper works
-You can select any combination of platforms & keywords to query from. For facebook and truth social, you will need to provide your login informations. The query for facebook and social will open a chrome window, you will see a loding sign on the tab of the application page when the scraper is running, please don't close any window when the process is not finished. After the process complete, the new data will be written to the database.
+### Note & Common Errors
+- We advise against running the fb scraper since it might result in your account being blocked.
 
-### How to Search Through the Database
-Open the Search Database page and select any combinations of search terms. After you hit search, the program will search through the database to retrieve all matching results. The waiting time may vary depending on the number of result, but it should be completed under 10 seconds. 
+- Note that we use [Blueprint](https://flask.palletsprojects.com/en/2.2.x/blueprints/), so you won't be able to run individual scripts without using some testing framwork.
 
-Then a link will appear at the bottom of the page. A csv file(spreadsheet) named results will automatically be downloaded through your browser. 
+- Make sure chromedriver path matches, and you are using the correct version for your browser.
 
-### Note
-For both search and scrape, it is required that you choose at least one platform and one keyword. You can leave the dates empty, if a date field is empty, we assume the start date to have the earliest possible date and end data to be today.
+- Website updates may result in errors in scraping. 
