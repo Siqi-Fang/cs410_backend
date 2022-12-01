@@ -4,6 +4,7 @@ from app.truth_scraper import query_single_truth
 from app.twitter_scraper import query_single_tweet
 from app.constants import Platform, FIELDS
 
+
 bp = Blueprint('app', __name__, template_folder='/templates', static_folder='/static')
 
 @bp.route('/')

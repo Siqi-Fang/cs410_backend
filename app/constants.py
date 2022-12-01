@@ -1,7 +1,7 @@
 from enum import Enum
 
 TRUTHSOCIAL_BASE = 'https://truthsocial.com/login'
-
+FB_RECENT_TOGGLE = '&filters=eyJyZWNlbnRfcG9zdHM6MCI6IntcIm5hbWVcIjpcInJlY2VudF9wb3N0c1wiLFwiYXJnc1wiOlwiXCJ9In0%3D'
 
 class Platform(Enum):
     TRUTHSOCIAL = 1

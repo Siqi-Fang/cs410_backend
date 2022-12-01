@@ -1,8 +1,8 @@
 import pandas as pd
 import csv
-from os import listdir
-from os.path import isfile, join
 import sqlite3
+from selenium.webdriver.chrome.options import Options
+from selenium import webdriver
 from app.db import get_db
 from app.constants import FIELDS
 
@@ -78,5 +78,18 @@ def update_csv_from_cmd(sql_cmd: str) -> int:
         return -1
 
 
-if __name__ == '__main__':
-    update_csv_from_cmd("SELECT POST_DATE, AUTHOR, CONTENT, PLATFORM, URL, KEYWORD FROM TEST WHERE keyword in (\'Illegal alien Latino\') and platform == \'facebook\'")
+def set_up_chrome_driver():
+    """Returns a chrome driver that runs in headless mode(no window shows up)"""
+
+    CHROMEDRIVER_PATH = '/Users/apple/Downloads/chromedriver'
+    WINDOW_SIZE = "1920,1080"
+
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--window-size=%s" % WINDOW_SIZE)
+
+    driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH,
+                              options=chrome_options)
+
+    return driver
+
