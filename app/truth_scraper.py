@@ -4,11 +4,9 @@ from datetime import datetime
 
 from selenium.webdriver.common.keys import Keys
 from selenium.common import exceptions
-from selenium import webdriver
-
+from app.utils import set_up_chrome_driver, single_write_to_db
 from sqlite3 import IntegrityError
 
-from app.utils import single_write_to_db
 from app.constants import TRUTHSOCIAL_BASE
 
 USERNAME = config('USERNAME')
@@ -152,10 +150,9 @@ def _login_to_truth(driver, my_username, my_password):
     sleep(0.5)
 
 
-def query_single_truth(term, query="KEYWORD", password=None, username=None):
-    #options = webdriver.ChromeOptions()
-    #options.add_argument("headless") # hides the window
-    driver = webdriver.Chrome('/Users/apple/Downloads/chromedriver')
+def query_single_truth(term, username='', password="", ):
+
+    driver = set_up_chrome_driver()
     driver.get(TRUTHSOCIAL_BASE)
     driver.maximize_window()
     sleep(2)
@@ -194,7 +191,6 @@ def query_single_truth(term, query="KEYWORD", password=None, username=None):
 
 def main():
     pass
-
 
 if __name__ == '__main__':
     main()

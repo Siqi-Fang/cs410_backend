@@ -1,7 +1,9 @@
 import sqlite3
 from flask import current_app, g
+from decouple import config
 
-DB = '/home/hamscraper/cs410_backend/data/database.db'
+DB = config('DB')
+
 
 def get_db():
     if 'db' not in g:

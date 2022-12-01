@@ -1,12 +1,14 @@
 import pandas as pd
 import csv
 import sqlite3
+from selenium.webdriver.chrome.options import Options
+from selenium import webdriver
 from app.db import get_db
 from app.constants import FIELDS
+from decouple import config
 
-DB = '/home/hamscraper/cs410_backend/data/database.db'
-TABLE = 'POSTS'
-
+DB = config('DB')
+TABLE='POSTS'
 
 def single_write_to_db(post_date, content, author, platform, url, keyword):
     """Write a single row to database"""
@@ -18,10 +20,18 @@ def single_write_to_db(post_date, content, author, platform, url, keyword):
     keyword = keyword
 
     conn = get_db()
-    conn.execute('INSERT INTO posts (post_date, content, author, platform, url, keyword) VALUES (?,?, ?, ?, ?, ?)',
+    conn.execute('INSERT INTO POSTS (post_date, content, author, platform, url, keyword) VALUES (?,?, ?, ?, ?, ?)',
                  (post_date, content, author, platform, url, keyword))
     conn.commit()
 
+
+def test_db_setup():
+    df = pd.read_csv('data/test_data.csv')
+    df['platform'] = 'facebook'
+    print(df.shape)
+
+    connection = sqlite3.connect('data/test.db')
+    df.to_sql(name="TEST", con=connection, if_exists='append')
 
 
 def form_field_to_sql_command(platform: str, keywords: str, start_date: str, end_date: str) -> str:
@@ -68,5 +78,18 @@ def update_csv_from_cmd(sql_cmd: str) -> int:
         return -1
 
 
-if __name__ == '__main__':
-    update_csv_from_cmd("SELECT POST_DATE, AUTHOR, CONTENT, PLATFORM, URL, KEYWORD FROM TEST WHERE keyword in (\'Illegal alien Latino\') and platform == \'facebook\'")
+def set_up_chrome_driver():
+    """Returns a chrome driver that runs in headless mode(no window shows up)"""
+
+    WINDOW_SIZE = "1920,1080"
+
+    chrome_options = Options()
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--window-size=%s" % WINDOW_SIZE)
+
+    driver = webdriver.Chrome(options=chrome_options)
+
+    return driver
+
