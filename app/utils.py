@@ -5,9 +5,10 @@ from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 from app.db import get_db
 from app.constants import FIELDS
+from decouple import config
 
-DB = 'data/database.db'
-TABLE = 'POSTS'
+DB = config('DB')
+CHROMEDRIVER_PATH = config('CHROMEDRIVER_PATH')
 
 
 def single_write_to_db(post_date, content, author, platform, url, keyword):
@@ -20,7 +21,7 @@ def single_write_to_db(post_date, content, author, platform, url, keyword):
     keyword = keyword
 
     conn = get_db()
-    conn.execute('INSERT INTO posts (post_date, content, author, platform, url, keyword) VALUES (?,?, ?, ?, ?, ?)',
+    conn.execute('INSERT INTO POSTS (post_date, content, author, platform, url, keyword) VALUES (?,?, ?, ?, ?, ?)',
                  (post_date, content, author, platform, url, keyword))
     conn.commit()
 
@@ -81,7 +82,6 @@ def update_csv_from_cmd(sql_cmd: str) -> int:
 def set_up_chrome_driver():
     """Returns a chrome driver that runs in headless mode(no window shows up)"""
 
-    CHROMEDRIVER_PATH = '/Users/apple/Downloads/chromedriver'
     WINDOW_SIZE = "1920,1080"
 
     chrome_options = Options()

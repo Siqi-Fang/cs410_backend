@@ -40,7 +40,6 @@ def getBack(browser):
         browser.back()
 
 
-
 def archiveAtEnd(browser, reviewList):
     browser.execute_script("window.scrollTo(0, -document.body.scrollHeight);")  # scroll back to the top
     time.sleep(10)
@@ -75,6 +74,7 @@ def archiveAtEnd(browser, reviewList):
                     bs_data = bs(source_data, 'html.parser')
                     file.write(str(bs_data.prettify()))
                     print(f'written: {idx}_{r}')
+
 
 def _login_facebook(driver):
     driver.get("http://www.facebook.com")
