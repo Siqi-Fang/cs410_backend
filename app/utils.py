@@ -9,7 +9,7 @@ from decouple import config
 
 DB = config('DB')
 CHROMEDRIVER_PATH = config('CHROMEDRIVER_PATH')
-
+TABLE='POSTS'
 
 def single_write_to_db(post_date, content, author, platform, url, keyword):
     """Write a single row to database"""
