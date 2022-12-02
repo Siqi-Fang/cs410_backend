@@ -1,4 +1,3 @@
-import pandas as pd
 import csv
 import sqlite3
 from selenium.webdriver.chrome.options import Options
@@ -45,8 +44,8 @@ def form_field_to_sql_command(platform: str, keywords: str, start_date: str, end
         where_statements.append('post_date between datetime(\'{}\') and datetime(\'{}\')'.format(
                                                         start_date, end_date))
 
-    return 'SELECT ' + ", ".join(FIELDS) + ' FROM ' + TABLE + ' WHERE ' + \
-           " and ".join(where_statements)
+    return 'SELECT ' + ", ".join(FIELDS) + ',sentiment, score' + ' FROM ' + TABLE + ' WHERE ' + \
+           " and ".join(where_statements) + 'ORDER BY sentiment, score  DESC'
 
 
 def update_csv_from_cmd(sql_cmd: str) -> int:
