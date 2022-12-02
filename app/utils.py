@@ -6,33 +6,25 @@ from selenium import webdriver
 from app.db import get_db
 from app.constants import FIELDS
 from decouple import config
+import eng_spacysentiment
+nlp = eng_spacysentiment.load()
 
 DB = config('DB')
 CHROMEDRIVER_PATH = config('CHROMEDRIVER_PATH')
-TABLE='POSTS'
+TABLE ='POSTS'
 
 def single_write_to_db(post_date, content, author, platform, url, keyword):
     """Write a single row to database"""
-    post_date = post_date
-    content = content
-    author = author
-    platform = platform
-    url = url
-    keyword = keyword
+    # sentiment analysis
+    result = nlp(content).cats
+    sentiment = 'positive' if result['positive'] > 0.5 else 'negative'
+    score = result[sentiment] * 100
 
     conn = get_db()
-    conn.execute('INSERT INTO POSTS (post_date, content, author, platform, url, keyword) VALUES (?,?, ?, ?, ?, ?)',
-                 (post_date, content, author, platform, url, keyword))
+    conn.execute('INSERT INTO POSTS (post_date, content, author, platform, url, keyword, sentiment, score) '
+                 'VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+                 (post_date, content, author, platform, url, keyword, sentiment, score))
     conn.commit()
-
-
-def test_db_setup():
-    df = pd.read_csv('data/test_data.csv')
-    df['platform'] = 'facebook'
-    print(df.shape)
-
-    connection = sqlite3.connect('data/test.db')
-    df.to_sql(name="TEST", con=connection, if_exists='append')
 
 
 def form_field_to_sql_command(platform: str, keywords: str, start_date: str, end_date: str) -> str:

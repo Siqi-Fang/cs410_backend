@@ -63,3 +63,5 @@ websockets==10.4
 Werkzeug @ file:///opt/conda/conda-bld/werkzeug_1645628268370/work
 wsproto==1.2.0
 zipp==3.10.0
+
+flask~=2.1.3
