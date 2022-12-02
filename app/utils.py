@@ -44,7 +44,7 @@ def form_field_to_sql_command(platform: str, keywords: str, start_date: str, end
         where_statements.append('post_date between datetime(\'{}\') and datetime(\'{}\')'.format(
                                                         start_date, end_date))
 
-    return 'SELECT ' + ", ".join(FIELDS) + ',sentiment, score' + ' FROM ' + TABLE + ' WHERE ' + \
+    return 'SELECT ' + ", ".join(FIELDS) + ' FROM ' + TABLE + ' WHERE ' + \
            " and ".join(where_statements) + 'ORDER BY sentiment, score  DESC'
 
 

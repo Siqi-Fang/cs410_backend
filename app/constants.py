@@ -24,7 +24,9 @@ FIELDS = ['POST_DATE',
           'CONTENT',
           'PLATFORM',
           'URL',
-          'KEYWORD']
+          'KEYWORD',
+          'SENTIMENT',
+          'SCORE',]
 
 KEYWORDS = ["Illegal alien Latino", "Illegal immigrant Latino", "Latino Wetback", "Latino Spic", \
             "Latino Undocumented", "Latino Beaner", "Latino Rapists", "Latino Drug dealers", "Latino Invasion"]
