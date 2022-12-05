@@ -7,6 +7,7 @@ class Platform(Enum):
     TRUTHSOCIAL = 1
     FACEBOOK = 2
     TWITTER = 3
+    GATEWAYPUNDIT = 4
 
     @staticmethod
     def from_str(term):
@@ -16,6 +17,8 @@ class Platform(Enum):
             return Platform.FACEBOOK
         elif term.lower() == 'twitter':
             return Platform.TWITTER
+        elif term.lower() == 'gateway-pundit':
+            return Platform.GATEWAYPUNDIT
         else:
             raise NotImplementedError
 
@@ -24,7 +27,9 @@ FIELDS = ['POST_DATE',
           'CONTENT',
           'PLATFORM',
           'URL',
-          'KEYWORD']
+          'KEYWORD',
+          'SENTIMENT',
+          'SCORE',]
 
 KEYWORDS = ["Illegal alien Latino", "Illegal immigrant Latino", "Latino Wetback", "Latino Spic", \
             "Latino Undocumented", "Latino Beaner", "Latino Rapists", "Latino Drug dealers", "Latino Invasion"]

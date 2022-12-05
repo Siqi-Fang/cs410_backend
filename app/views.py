@@ -1,8 +1,12 @@
 from flask import Blueprint, request, render_template, url_for
 from app.utils import form_field_to_sql_command, update_csv_from_cmd
-from app.truth_scraper import query_single_truth
-from app.twitter_scraper import query_single_tweet
 from app.constants import Platform, FIELDS
+
+from app.truth_scraper import query_single_truth
+from app.gateway import query_single_post
+from app.twitter_scraper import query_single_tweet
+
+
 
 
 bp = Blueprint('app', __name__, template_folder='/templates', static_folder='/static')
@@ -64,22 +68,13 @@ def retrieve_posts():
 
         return render_template('search.html', link_to_download=link_to_download)
 
-
-# def retrieve_post(post_id):
-#     conn = get_db_connection()
-#     post = conn.execute('SELECT * FROM posts WHERE id = ?',
-#                         (post_id,)).fetchone()
-#     conn.close()
-#     if post is None:
-#         FileNotFoundError("No Post Found")
-#     return post
-
-
 def perform_new_query(platform, term, user_login, user_key):
     if platform == Platform.TRUTHSOCIAL:
         query_single_truth(term, user_key, user_login)
     elif platform == Platform.TWITTER:
         query_single_tweet(term)
+    elif platform == Platform.GATEWAYPUNDIT:
+        query_single_post(term)
     elif platform == Platform.FACEBOOK:
         raise NotImplementedError
 
