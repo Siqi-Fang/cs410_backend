@@ -1,7 +1,6 @@
 import sqlite3
 from flask import current_app, g
 from decouple import config
-
 DB = config('DB')
 
 
@@ -25,6 +24,3 @@ def close_db(e=None):
     if db is not None:
         db.close()
 
-
-if __name__ == '__main__':
-    init_db()

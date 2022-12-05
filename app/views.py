@@ -69,6 +69,18 @@ def retrieve_posts():
         return render_template('search.html', link_to_download=link_to_download)
 
 
+@bp.errorhandler(500)
+def handle_server_error(e):
+    msg = 'this is likely because of an internet issue, please try again later'
+    return render_template('error.html', msg=msg)
+
+
+@bp.errorhandler(404)
+def handle_server_error(e):
+    msg = "Page Not Found"
+    return render_template('error.html', msg=msg)
+
+
 def perform_new_query(platform, term, user_login, user_key):
     if platform == Platform.TRUTHSOCIAL:
         query_single_truth(term, user_key, user_login)

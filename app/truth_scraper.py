@@ -119,12 +119,13 @@ def truth_search(driver, term, query):
     driver_clear(search_input)
     search_input.send_keys(search_term)
     search_input.send_keys(Keys.RETURN)
-    sleep(1)
+    sleep(3)
 
     if query == 'USER':
         driver.find_element("xpath", '//a[@title="' + term + '"]').click()  # opens the person's profile page
     elif query == "KEYWORD":  # get to post page
         tab = driver.find_element("xpath", '//div[@role="tablist"]')
+        sleep(1)
         element = tab.find_element("xpath", '//button[2]/div')
         driver.execute_script("arguments[0].click();", element)
 
@@ -162,7 +163,7 @@ def query_single_truth(term, username='', password="", ):
     else:
         _login_to_truth(driver, username, password)
 
-    sleep(2)
+    sleep(4)
 
     truth_search(driver, term, 'KEYWORD')
 
