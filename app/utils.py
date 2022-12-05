@@ -26,16 +26,15 @@ def single_write_to_db(post_date, content, author, platform, url, keyword):
     conn.commit()
 
 
-def form_field_to_sql_command(platform: str, keywords: str, start_date: str, end_date: str) -> str:
+def form_field_to_sql_command(platform: str, keywords: list, start_date: str, end_date: str) -> str:
     """
     Return the string sql command that query for the given kwargs.
     If dates are left blank then we don't filter for dates,
     """
     where_statements = []
-
     keywords = ["\'" + keyword + "\'" for keyword in keywords]
     where_statements.append('keyword in ({})'.format(",".join(keywords)))
-    where_statements.append('platform == \'{}\''.format(platform))
+    where_statements.append('platform = \'{}\''.format(platform))
     if start_date != '' and end_date == '':
         where_statements.append('post_date > datetime(\'{}\')'.format(start_date))
     elif start_date == '' and end_date != '':

@@ -82,13 +82,11 @@ def _login_facebook(driver):
     username = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[name='email']")))
     password = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[name='pass']")))
 
-    username1 = "airsocosal@gmail.com"
-    password1 = "Air20010423"
 
     username.clear()
-    username.send_keys(username1)
+    username.send_keys(USERNAME)
     password.clear()
-    password.send_keys(password1)
+    password.send_keys(KEY)
 
     # log in
     button = WebDriverWait(driver, 2).until(
