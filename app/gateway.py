@@ -18,8 +18,6 @@ def main():
 
 def query_single_post(slur):
     # https://www.thegatewaypundit.com/?s=hispanic+immigrants
-    # slurs = ["Illegal alien Latino", "Illegal immigrant Latino", "Latino Wetback", "Latino Spic", "Latino Undocumented",
-    #          "Latino Beaner", "Latino Rapists", "Latino Drug dealers", "Latino Invasion"]
     slur = slur.lower()
     pattern = re.compile('https:\/\/www\.thegatewaypundit\.com\/\d+\/\d+\/.*')
     headers = {

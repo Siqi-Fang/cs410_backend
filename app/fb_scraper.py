@@ -7,10 +7,12 @@ from decouple import config
 from app.constants import FB_RECENT_TOGGLE
 from app.utils import set_up_chrome_driver, single_write_to_db
 
+
 import time
 
 USERNAME = config('USERNAME')
 KEY = config('KEY')
+CHROMEDRIVER_PATH = config('CHROMEDRIVER_PATH')
 
 
 def openSeeMore(browser):
@@ -76,7 +78,7 @@ def archiveAtEnd(browser, reviewList):
                     print(f'written: {idx}_{r}')
 
 
-def _login_facebook(driver):
+def _login_facebook(driver, username_val, passowrd_val):
     driver.get("http://www.facebook.com")
 
     username = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[name='email']")))
@@ -84,20 +86,27 @@ def _login_facebook(driver):
 
 
     username.clear()
-    username.send_keys(USERNAME)
+    username.send_keys(username_val)
     password.clear()
-    password.send_keys(KEY)
+    password.send_keys(passowrd_val)
 
     # log in
-    button = WebDriverWait(driver, 2).until(
+    WebDriverWait(driver, 2).until(
         EC.element_to_be_clickable((By.CSS_SELECTOR, "button[type='submit']"))).click()
 
     # wait 5 seconds to allow your new page to load
     time.sleep(5)
 
 
-def single_keyword_search(driver, keyword):
+def query_single_fbpost(driver, keyword, password='', username=''):
     driver = set_up_chrome_driver()
+
+    if password == "":
+        _login_facebook(driver, USERNAME, KEY)
+    else:
+        _login_facebook(driver, username, password)
+
+
     keyword = keyword.lower().replace(" ", '%20')
 
     driver.get("http://www.facebook.com/search/posts?q={}{}".format(keyword, FB_RECENT_TOGGLE))
@@ -121,8 +130,6 @@ def single_keyword_search(driver, keyword):
                  driver.find_elements(By.XPATH, '//div[@class="_52jc _5qc4 _78cz _24u0 _36xo"]/a[@class="_26yo"]')]
         links_l = [el.get_attribute('href') for el in
                    driver.find_elements(By.XPATH, '//div[@class="_52jc _5qc4 _78cz _24u0 _36xo"]/a[@class="_26yo"]')]
-        # texts = [el.text for el in driver.find_elements(By.XPATH,
-        #                                                 '//div[@class="_5rgr _5gh8 _3-hy async_like"]/div[@class="story_body_container"]/div/div/span/span[@data-sigil="more"]')]
         names = [el.text for el in driver.find_elements(By.XPATH, '//div[@class="_4g34"]/h3')]
 
         actualPosts = driver.find_elements(By.XPATH,
@@ -143,9 +150,9 @@ def single_keyword_search(driver, keyword):
             switch = False
         else:
             height = driver.execute_script("return document.body.scrollHeight")
-
+    print('facebook posts collected: {}'.format(len(names)))
     for i in range(len(names)):
-        # make prediction here predicted = ''
+
         single_write_to_db(dates[i], text[i], names[i], 'facebook', links_l[i])
 
 

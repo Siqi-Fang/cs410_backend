@@ -5,7 +5,7 @@ from app.constants import Platform, FIELDS
 from app.truth_scraper import query_single_truth
 from app.gateway import query_single_post
 from app.twitter_scraper import query_single_tweet
-
+from app.fb_scraper import query_single_fbpost
 
 
 
@@ -77,7 +77,7 @@ def perform_new_query(platform, term, user_login, user_key):
     elif platform == Platform.GATEWAYPUNDIT:
         query_single_post(term)
     elif platform == Platform.FACEBOOK:
-        raise NotImplementedError
+        query_single_fbpost(term, user_key, user_login)
 
 
 
